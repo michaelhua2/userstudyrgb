@@ -1,0 +1,72 @@
+{% extends "basic.html" %}
+{% load staticfiles %}
+
+
+
+{% block content %} 
+<div class="container">
+
+  <form action="" method="post" id="info_form">
+    {% csrf_token %}
+
+    <div class="row center">
+      <h3>Red-Green Colorblind Information</h3>
+    </div>
+
+    <div class="row">
+      <div class="col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
+
+        <div class="row text-center" style="margin-bottom: 20px;">
+          <img src="{% static 'ishihara.png' %}" alt="Colorblind Example" class="img-responsive center-block" style="max-width: 250px;">
+          <br>
+          <p>If you have trouble seeing "74" in the above image, please select colorblind.<br>If you are not colorblind, the following images will be simulated for you as if you were colorblind. </p>
+        </div>
+
+        <div class="form-group">
+          <label for="colorblind" class="col-sm-6 control-label">Are you red-green colorblind?</label>
+          <div class="col-sm-6">
+            <div class="btn-group">
+              <select class="form-control" id="colorblind-selector" name="colorblind" onchange="validate_info()">
+                <option value=0 selected disabled>-</option>
+                <option value=1 >Yes</option>
+                <option value=2 >No</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+    </div>
+
+
+    <br>
+    <div class="row">
+      <div class="center">
+        <input type="submit" class="btn btn-primary btn-raised" id="info-next-btn" disabled="disable" value="Next" onclick="show_waiting()">
+      </div>
+    </div>
+
+
+    <div class="modal fade bs-example-modal-sm" id="myPleaseWait" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title center">
+              <span class="glyphicon glyphicon-time"></span> Please Wait
+            </h4>
+          </div>
+          <div class="modal-body">
+            <div class="progress">
+              <div class="progress-bar progress-bar-info progress-bar-striped active" style="width: 100%"></div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+  </form>
+
+</div>
+{% endblock content %}
+
