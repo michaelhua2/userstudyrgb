@@ -33,7 +33,7 @@ def info(request):
     if request.method == 'POST':
         colorblind = request.POST.get('colorblind')
         request.session['is_colorblind'] = (colorblind == '1')
-        return redirect('consent')
+        return redirect('main')
     return render(request, 'userstudy/info.html')
 
 def main(request):
