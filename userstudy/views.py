@@ -17,12 +17,24 @@ num_methods = 2      #ours, sd, dalton, jiabin
 def index(request):
 
     if( request.method == "POST" ):
-        return redirect('info')
+        return redirect('consent')
 
     return render(request, 'userstudy/index.html')
 
 
 index_to_method = {1: 'ours', 2: 'unguided', 3: 'dalton', 4: 'jiabin'}
+
+def consent(request):
+    if request.method == "POST":
+        return redirect('info')
+    return render(request, 'userstudy/consent.html')
+
+def info(request):
+    if request.method == 'POST':
+        colorblind = request.POST.get('colorblind')
+        request.session['is_colorblind'] = (colorblind == '1')
+        return redirect('consent')
+    return render(request, 'userstudy/info.html')
 
 def main(request):
 
@@ -65,7 +77,8 @@ def main(request):
 
         current_vote_id = 0
         vote = user.get_vote(current_vote_id)
-        subdir = 'rgb' if is_colorblind else 'cvd'
+        # subdir = 'rgb' if is_colorblind else 'cvd'
+        subdir = 'rgb'
 
         if vote.swap_display:
             left_method, right_method = vote.method2, vote.method1
@@ -137,7 +150,8 @@ def main(request):
             })
 
         vote = user.get_vote(current_vote_id)
-        subdir = 'rgb' if is_colorblind else 'cvd'
+        # subdir = 'rgb' if is_colorblind else 'cvd'
+        subdir = 'rgb'
 
         if vote.swap_display:
             left_method, right_method = vote.method2, vote.method1
@@ -163,14 +177,6 @@ def main(request):
 
 def finish(request):
     return render(request, 'userstudy/finish.html')
-
-def info(request):
-    if request.method == 'POST':
-        colorblind = request.POST.get('colorblind')
-        request.session['is_colorblind'] = (colorblind == '1')
-        request
-        return redirect('main')
-    return render(request, 'userstudy/info.html')
 
 def dump(request):
     user_all = People.objects.all().exclude(ed_time=None)

@@ -49,9 +49,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'cvd_userstudy.urls'
+ROOT_URLCONF = 'rgb_userstudy.urls'
 
-WSGI_APPLICATION = 'cvd_userstudy.wsgi.application'
+WSGI_APPLICATION = 'rgb_userstudy.wsgi.application'
 
 
 # Database
