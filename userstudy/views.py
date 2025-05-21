@@ -11,7 +11,7 @@ from django import template
 import pdb, json
 
 VERSION = '20170728_style'
-num_methods = 2      #ours, sd, dalton, jiabin
+num_methods = 4      #ours, sd, dalton, jiabin
 index_to_method = {1: 'ours', 2: 'unguided', 3: 'dalton', 4: 'jiabin'}
 
 # Create your views here.
@@ -33,9 +33,9 @@ def info(request):
     return render(request, 'userstudy/info.html')
 
 def main(request):
-
     ########## config ##########
-    num_scenes = 50
+    num_scenes = 25
+    start_scene_id = 0
     base_method = 1
     compare_methods = [2, 3, 4]
     total_votes = num_scenes * len(compare_methods)
@@ -60,7 +60,7 @@ def main(request):
             for m2 in compare_methods:
                 vote = Vote()
                 vote.user = user
-                vote.sceneId = scene_id
+                vote.sceneId = scene_id + start_scene_id
                 vote.method1 = base_method
                 vote.method2 = m2
                 vote.order = 0
